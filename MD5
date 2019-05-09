@@ -1,8 +1,9 @@
-071796459c3588d6878ca99eca1a8d93 *DESCRIPTION
+1d9fb1a698dfd9a81132d3c01299ca89 *DESCRIPTION
 0e962487aed507da3293b389dbb6b7fa *NAMESPACE
+974b7f6d8a6bacad5d0b8a0c250d90d6 *NEWS
 e2dba00d632bc76c9640e714974fdb5c *R/RcppExports.R
 f81882775559db4285321f4e1b3f702c *R/ab_test.R
-0a670fcac310479165bcaa19d121c273 *R/ab_test_internals.R
+6d6772afefd543344625bf8b3d5124f7 *R/ab_test_internals.R
 e999e9293fb83b8ed6e719f2551d09af *R/dprior.R
 f1a2e8530f6ccc817c7ac7fe939a36ee *R/elicit_prior.R
 ee5a8fe6e972e08097d6afe2a9296656 *R/plot_posterior.R
