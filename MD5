@@ -1,9 +1,9 @@
-945a82f49b3ccdaae37f1a4b891de0fc *DESCRIPTION
-0412f38a19e76f82f5872befb7039fc6 *NAMESPACE
-3c195ae2a087ee76b9fea0175191a5df *NEWS
+d7551f89b04189379b580e8a1a60b0e9 *DESCRIPTION
+f94799fb4e40105850adff5759952476 *NAMESPACE
+9303daf07ec2da865668f0f56488ec24 *NEWS
 e2dba00d632bc76c9640e714974fdb5c *R/RcppExports.R
 d54b8699087ee1439b008f5f40b92ef7 *R/ab_methods.R
-32adc02261c92ec969ef4ba63fd0f64e *R/ab_test.R
+034a020c738652e3662cf2ecd700f861 *R/ab_test.R
 6d6772afefd543344625bf8b3d5124f7 *R/ab_test_internals.R
 e999e9293fb83b8ed6e719f2551d09af *R/dprior.R
 f1a2e8530f6ccc817c7ac7fe939a36ee *R/elicit_prior.R
@@ -11,7 +11,7 @@ f1a2e8530f6ccc817c7ac7fe939a36ee *R/elicit_prior.R
 8d3ca4a48b9f15b9ba40fe0fe4119ac7 *R/plot_posterior.R
 7d083c061ab407d408bba49774e5217a *R/plot_prior.R
 5086600f160d514e0c72dea6109ad721 *R/plot_robustness.R
-a84c94d2cdd6a5b63664bc6e6f428368 *R/plot_sequential.R
+c6b85c8e84f2ed8a321dee3ffd84b73e *R/plot_sequential.R
 3bfb6773313915486f39656ca1febf33 *R/pprior.R
 1d8954f053883aee1b4a29007093dea0 *R/prior_distributions.R
 26f7eaeb38d75d75140b928596846093 *R/prob_wheel.R
