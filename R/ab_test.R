@@ -52,7 +52,12 @@
 #'   elements a vector with a cumulative sequence of "successes"/trials. This
 #'   allows the user to produce a sequential plot of the posterior probabilities
 #'   for each hypothesis by passing the result object of class \code{"ab"} to
-#'   the \code{\link{plot_sequential}} function.
+#'   the \code{\link{plot_sequential}} function. Sequential data can also be
+#'   provided in form of a data frame or matrix that has the columns "outcome"
+#'   (containing only 0 and 1 to indicate the binary outcome) and "group"
+#'   (containing only 1 and 2 to indicate the group membership). Note that the
+#'   data can also be provided by specifying the arguments \code{y} and
+#'   \code{n} instead (not possible for sequential data).
 #' @param prior_par list with prior parameters. This list needs to contain the
 #'   following elements: \code{mu_psi} (prior mean for the normal prior on the
 #'   test-relevant log odds ratio), \code{sigma_psi} (prior standard deviation
@@ -90,6 +95,10 @@
 #'   proposal density. The default is \code{5}.
 #' @param posterior Boolean which indicates whether posterior samples should be
 #'   returned. The default is \code{FALSE}.
+#' @param y integer vector of length 2 containing the number of "successes" in
+#'   the control and experimental conditon
+#' @param n integer vector of length 2 containing the number of trials in
+#'   the control and experimental conditon
 #' @details The implemented Bayesian A/B test is based on the following model by
 #'   Kass and Vaidyanathan (1992, section 3): \deqn{log(p1/(1 - p1)) = \beta -
 #'   \psi/2} \deqn{log(p2/(1 - p2)) = \beta + \psi/2} \deqn{y1 ~ Binomial(n1,
@@ -140,7 +149,8 @@
 #' @references Kass, R. E., & Vaidyanathan, S. K. (1992). Approximate Bayes
 #'   factors and orthogonal parameters, with application to testing equality of
 #'   two binomial proportions. \emph{Journal of the Royal Statistical Society,
-#'   Series B, 54}, 129-144. \url{https://doi.org/10.1111/j.2517-6161.1992.tb01868.x}
+#'   Series B, 54}, 129-144.
+#'   \url{https://doi.org/10.1111/j.2517-6161.1992.tb01868.x}
 #' @example examples/example.ab_test.R
 #'
 #' @seealso \code{\link{elicit_prior}} allows the user to elicit a prior based
@@ -161,18 +171,67 @@
 #' @importFrom qgam log1pexp
 #' @importFrom Matrix nearPD
 #' @export
-ab_test <- function(data,
+ab_test <- function(data = NULL,
                     prior_par = list(mu_psi = 0, sigma_psi = 1,
                                      mu_beta = 0, sigma_beta = 1),
                     prior_prob = NULL,
                     nsamples = 1e4,
                     is_df = 5,
-                    posterior = FALSE) {
+                    posterior = FALSE,
+                    y = NULL,
+                    n = NULL) {
 
 
   ### argument checking ###
 
   # check data
+
+  if (is.null(data) && (is.null(y) || is.null(n))) {
+    stop('data needs to be provided either via "data" or via "y" and "n"',
+         call. = FALSE)
+  }
+
+  if ( ! is.null(data) && (! is.null(y) || ! is.null(n))) {
+    stop('data needs to be provided either via "data" or via "y" and "n"',
+         call. = FALSE)
+  }
+
+  if ( is.null(data) && ! is.null(y) && ! is.null(n)) {
+    data <- list(y1 = y[1], n1 = n[1], y2 = y[2], n2 = n[2])
+  }
+
+  if ( ! is.list(data) && ! is.data.frame(data) && ! is.matrix(data)) {
+    stop('data needs to be a list, data frame, or matrix with
+         the required elements',
+         call. = FALSE)
+  }
+
+  if ((is.data.frame(data) &&
+       ! all(c("y1", "y2", "n1", "n2") %in% names(data))) ||
+      is.matrix(data)) {
+
+    # convert data to list in case they are provided as matrix or data.frame
+
+    if (! all(c("outcome", "group") %in% colnames(data))) {
+      stop('data provided as matrix or data frame needs to contain the columns
+           "outcome" and "group"',
+           call. = FALSE)
+    }
+
+    if ( ! all(data[,"outcome"] %in% c(0, 1))) {
+      stop('"outcome" column can only contain 0 and 1',
+           call. = FALSE)
+    }
+
+    if ( ! all(data[,"group"] %in% c(1, 2))) {
+      stop('"group" column can only contain 1 and 2',
+           call. = FALSE)
+    }
+
+    data <- long2cumulative(data)
+
+  }
+
   if ( ! is.list(data) ||
        ! all(c("y1", "y2", "n1", "n2") %in% names(data)) ||
        ! is.numeric(unlist(data))) {

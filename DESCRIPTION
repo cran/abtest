@@ -1,7 +1,7 @@
 Package: abtest
 Type: Package
 Title: Bayesian A/B Testing
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: c(person(given="Quentin F.", family="Gronau", role=c("aut", "cre"),
              email="Quentin.F.Gronau@gmail.com"),
              person(given="Akash", family="Raj", role="ctb"),
@@ -18,10 +18,10 @@ LinkingTo: Rcpp
 RoxygenNote: 6.1.1
 Suggests: testthat
 NeedsCompilation: yes
-Packaged: 2020-04-23 10:32:56 UTC; quentin
+Packaged: 2020-11-12 15:01:53 UTC; quentin
 Author: Quentin F. Gronau [aut, cre],
   Akash Raj [ctb],
   Eric-Jan Wagenmakers [ths]
 Maintainer: Quentin F. Gronau <Quentin.F.Gronau@gmail.com>
 Repository: CRAN
-Date/Publication: 2020-04-23 13:50:05 UTC
+Date/Publication: 2020-11-12 16:50:02 UTC
